@@ -1,10 +1,10 @@
 <x-mail::message>
-# Introduction
+# Your post has been liked.
 
-The body of your message.
+{{$liker->name}} liked one of your posts.
 
-<x-mail::button :url="''">
-Button Text
+<x-mail::button :url="route('posts.show', $post)">
+View Post
 </x-mail::button>
 
 Thanks,<br>

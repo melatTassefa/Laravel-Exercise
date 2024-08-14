@@ -8,17 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
+use App\Models\Post;
 
 class PostLiked extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $liker;
+    public $post;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(User $liker, Post $post)
     {
         //
+        $this->liker = $liker;
+        $this->post = $post;
     }
 
     /**
@@ -27,7 +32,7 @@ class PostLiked extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Post Liked',
+            subject: 'Someone liked your post',
         );
     }
 

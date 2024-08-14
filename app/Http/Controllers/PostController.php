@@ -8,6 +8,9 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth'])->only(['store', 'destroy']);
+    }
     public function index(){
         $posts = Post::orderBy('created_at', 'desc')->with(['user','likes'])->paginate(20);   //returns a laravel collection, only the number of records specified, gets all the posts can use where, find, first, latest, oldest, etc Eager loading??
         return view('posts.index', ['posts' => $posts]);
@@ -16,7 +19,7 @@ class PostController extends Controller
     public function show(Post $post){
         return view('posts.show',[
             'post' => $post,
-            
+
         ]);
     }
 
